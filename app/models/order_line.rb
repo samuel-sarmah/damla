@@ -1,0 +1,6 @@
+class OrderLine < ApplicationRecord
+  belongs_to :delivery_order
+  belongs_to :product
+
+  validates :quantity, numericality: { greater_than: 0 }
+end
