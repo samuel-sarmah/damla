@@ -1,0 +1,23 @@
+<% content_for :title, "#{t('delivery_check.title')} — #{t('site.name')}" %>
+
+<div class="max-w-md">
+  <h1 class="text-3xl font-bold text-slate-900"><%= t("delivery_check.title") %></h1>
+
+  <%= form_with url: delivery_zone_check_path(locale: I18n.locale), method: :get, class: "mt-6 flex gap-3" do %>
+    <select name="district" class="flex-1 rounded-md border-slate-300 focus:border-sky-500 focus:ring-sky-500">
+      <option value=""><%= t("delivery_check.prompt") %></option>
+      <% Districts::VALUES.each do |district| %>
+        <option value="<%= district %>" <%= "selected" if district == @district %>>
+          <%= t("districts.#{district}") %>
+        </option>
+      <% end %>
+    </select>
+    <%= submit_tag t("delivery_check.submit"), class: "rounded-md bg-sky-700 px-5 py-2 text-white font-medium hover:bg-sky-800 cursor-pointer" %>
+  <% end %>
+
+  <% if @district %>
+    <p class="mt-6 rounded-md p-4 <%= @served ? "bg-emerald-50 text-emerald-800" : "bg-amber-50 text-amber-800" %>">
+      <%= t("delivery_check.#{@served ? "served" : "not_served"}", district: t("districts.#{@district}")) %>
+    </p>
+  <% end %>
+</div>
