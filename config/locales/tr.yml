@@ -1,0 +1,57 @@
+tr:
+  number:
+    currency:
+      format:
+        unit: "₺"
+        format: "%n %u"
+        separator: ","
+        delimiter: "."
+        precision: 2
+  site:
+    name: "Öz Su"
+    tagline: "Kuzey Kıbrıs'ın her yerine taze kaynak suyu"
+  nav:
+    home: "Ana Sayfa"
+    products: "Ürünler"
+    delivery_check: "Teslimat Bölgeleri"
+    order: "Sipariş Ver"
+    water_quality: "Su Kalitesi"
+    order_whatsapp: "WhatsApp'tan Sipariş Ver"
+  products:
+    title: "Ürünlerimiz"
+    view_details: "Detayları Gör"
+    deposit_note: "Değişimli damacana — ilk teslimatta depozito alınır; sonraki teslimatlar boş damacana karşılığı doludur."
+  whatsapp:
+    order_template: "Merhaba, %{quantity} adet %{product} (%{size}L) sipariş etmek istiyorum."
+  home:
+    hero_title: "Kaynağından kapınıza temiz su"
+    hero_subtitle: "0.5L, 1L, 1.5L, 5L ve 19L damacana seçenekleriyle Lefkoşa, Girne, Gazimağusa, Güzelyurt, İskele ve Lefke'ye teslimat."
+    cta_products: "Ürünleri Gör"
+    cta_delivery_check: "Bölgenizi Kontrol Edin"
+  districts:
+    lefkosa: "Lefkoşa"
+    gazimagusa: "Gazimağusa"
+    girne: "Girne"
+    guzelyurt: "Güzelyurt"
+    iskele: "İskele"
+    lefke: "Lefke"
+  delivery_check:
+    title: "Teslimat Bölgenizi Kontrol Edin"
+    prompt: "Bölgenizi seçin"
+    submit: "Kontrol Et"
+    served: "İyi haber — %{district} bölgesine teslimat yapıyoruz."
+    not_served: "Üzgünüz, şu anda %{district} bölgesine teslimat yapmıyoruz."
+  delivery_orders:
+    title: "Sipariş Ver"
+    customer_name: "Ad Soyad"
+    customer_phone: "Telefon Numarası"
+    address_district: "Bölge"
+    address_description: "Adres Tarifi"
+    address_description_hint: "Konumunuzu tarif edin (sokak, bina, en yakın referans nokta) — burada tam kapı numaraları her zaman güvenilir değildir."
+    address_notes: "Teslimat Notu (opsiyonel)"
+    quantity: "Adet"
+    submit: "Siparişi Gönder"
+    no_items_selected: "Lütfen en az bir ürün seçin."
+    thank_you: "Teşekkürler! Siparişiniz alındı — teslimatı onaylamak için sizinle iletişime geçeceğiz."
+  footer:
+    rights: "Tüm hakları saklıdır."

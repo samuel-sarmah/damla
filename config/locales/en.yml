@@ -1,0 +1,57 @@
+en:
+  number:
+    currency:
+      format:
+        unit: "₺"
+        format: "%u%n"
+        separator: "."
+        delimiter: ","
+        precision: 2
+  site:
+    name: "Öz Su"
+    tagline: "Fresh spring water, delivered across Northern Cyprus"
+  nav:
+    home: "Home"
+    products: "Products"
+    delivery_check: "Delivery areas"
+    order: "Order"
+    water_quality: "Water quality"
+    order_whatsapp: "Order via WhatsApp"
+  products:
+    title: "Our Products"
+    view_details: "View details"
+    deposit_note: "Refillable jug — first delivery includes a deposit; later deliveries are an empty-for-full exchange."
+  whatsapp:
+    order_template: "Hello, I'd like to order %{quantity} x %{product} (%{size}L)."
+  home:
+    hero_title: "Pure water, delivered to your door"
+    hero_subtitle: "0.5L, 1L, 1.5L, 5L and 19L bottles, delivered across Lefkoşa, Girne, Gazimağusa, Güzelyurt, İskele and Lefke."
+    cta_products: "See products"
+    cta_delivery_check: "Check your delivery area"
+  districts:
+    lefkosa: "Nicosia (Lefkoşa)"
+    gazimagusa: "Famagusta (Gazimağusa)"
+    girne: "Kyrenia (Girne)"
+    guzelyurt: "Morphou (Güzelyurt)"
+    iskele: "Trikomo (İskele)"
+    lefke: "Lefke"
+  delivery_check:
+    title: "Check your delivery area"
+    prompt: "Select your district"
+    submit: "Check"
+    served: "Good news — we deliver to %{district}."
+    not_served: "Sorry, we don't currently deliver to %{district} yet."
+  delivery_orders:
+    title: "Place an order"
+    customer_name: "Full name"
+    customer_phone: "Phone number"
+    address_district: "District"
+    address_description: "Address description"
+    address_description_hint: "Describe your location (street, building, nearest landmark) — exact house numbers aren't always reliable here."
+    address_notes: "Delivery notes (optional)"
+    quantity: "Quantity"
+    submit: "Place order"
+    no_items_selected: "Please select at least one product."
+    thank_you: "Thanks! Your order has been received — we'll contact you to confirm delivery."
+  footer:
+    rights: "All rights reserved."
