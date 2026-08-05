@@ -9,10 +9,10 @@ Rails.application.routes.draw do
   # crawlable per-language, which matters once :el/:ru are added later.
   scope "/:locale", locale: /tr|en/ do
     get "/", to: "home#index", as: :locale_root
-    resources :products, only: [:index, :show]
+    resources :products, only: [ :index, :show ]
     get "delivery-check", to: "delivery_zone_checks#show", as: :delivery_zone_check
-    resources :delivery_orders, only: [:new, :create]
-    resources :content_pages, only: [:show], param: :slug, path: "pages"
+    resources :delivery_orders, only: [ :new, :create ]
+    resources :content_pages, only: [ :show ], param: :slug, path: "pages"
   end
 
   # Internal staff tool — not locale-scoped (see Staff::BaseController).

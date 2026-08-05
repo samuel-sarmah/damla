@@ -36,7 +36,7 @@ module BottledWaterTrnc
 
     # tr is primary/default; el and ru are added here later with no route/controller
     # changes required elsewhere (see config/locales and the Mobility-backed models).
-    config.i18n.available_locales = [:tr, :en]
+    config.i18n.available_locales = [ :tr, :en ]
     config.i18n.default_locale = :tr
   end
 end

@@ -1,7 +1,7 @@
 module Staff
   class DeliveryOrdersController < Staff::BaseController
-    before_action :set_delivery_order, only: [:show, :update]
-    before_action :load_products, only: [:new, :create]
+    before_action :set_delivery_order, only: [ :show, :update ]
+    before_action :load_products, only: [ :new, :create ]
 
     def index
       @delivery_orders = DeliveryOrder.includes(:customer, :address).order(created_at: :desc)
