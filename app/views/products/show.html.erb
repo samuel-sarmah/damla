@@ -1,0 +1,20 @@
+<% content_for :title, "#{@product.name} — #{t('site.name')}" %>
+
+<%= link_to "&larr; #{t('products.title')}".html_safe, products_path(locale: I18n.locale), class: "text-sm text-sky-700" %>
+
+<div class="mt-6 max-w-xl">
+  <h1 class="text-3xl font-bold text-slate-900"><%= @product.name %></h1>
+  <p class="mt-1 text-slate-500"><%= @product.size_liters %> L</p>
+  <p class="mt-4 text-2xl font-semibold text-sky-700"><%= number_to_currency(@product.base_price_try) %></p>
+
+  <% if @product.requires_deposit? %>
+    <p class="mt-3 text-sm text-amber-700"><%= t("products.deposit_note") %></p>
+  <% end %>
+
+  <div class="mt-6 flex flex-wrap gap-3">
+    <%= link_to t("nav.order_whatsapp"), whatsapp_order_url(@product), target: "_blank", rel: "noopener",
+          class: "inline-flex items-center gap-2 rounded-md bg-emerald-600 px-5 py-2.5 text-white font-medium hover:bg-emerald-700" %>
+    <%= link_to t("delivery_orders.title"), new_delivery_order_path(locale: I18n.locale),
+          class: "inline-flex items-center gap-2 rounded-md border border-sky-700 px-5 py-2.5 text-sky-700 font-medium hover:bg-sky-50" %>
+  </div>
+</div>
