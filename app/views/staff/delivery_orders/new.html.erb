@@ -1,0 +1,60 @@
+<% content_for :title, "Yeni Sipariş — Personel Paneli" %>
+
+<h1 class="text-2xl font-bold text-slate-900">Yeni Sipariş (Manuel)</h1>
+
+<%= form_with url: staff_delivery_orders_path, method: :post, class: "mt-6 space-y-8 max-w-xl" do %>
+  <fieldset class="space-y-4">
+    <div>
+      <label class="block text-sm font-medium text-slate-700">Sipariş Kaynağı</label>
+      <select name="order_source" class="mt-1 block w-full rounded-md border-slate-300 focus:border-sky-500 focus:ring-sky-500">
+        <option value="phone" <%= "selected" if @order_source == "phone" %>>Telefon</option>
+        <option value="whatsapp" <%= "selected" if @order_source == "whatsapp" %>>WhatsApp</option>
+      </select>
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-slate-700">Ad Soyad</label>
+      <%= text_field_tag "customer[name]", @customer&.name, required: true,
+            class: "mt-1 block w-full rounded-md border-slate-300 focus:border-sky-500 focus:ring-sky-500" %>
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-slate-700">Telefon Numarası</label>
+      <%= telephone_field_tag "customer[phone]", @customer&.phone, required: true, placeholder: "0533 123 45 67",
+            class: "mt-1 block w-full rounded-md border-slate-300 focus:border-sky-500 focus:ring-sky-500" %>
+    </div>
+  </fieldset>
+
+  <fieldset class="space-y-4">
+    <div>
+      <label class="block text-sm font-medium text-slate-700">Bölge</label>
+      <%= select_tag "address[district]",
+            options_for_select(Districts::VALUES.map { |d| [t("districts.#{d}"), d] }, @address&.district),
+            include_blank: true, required: true,
+            class: "mt-1 block w-full rounded-md border-slate-300 focus:border-sky-500 focus:ring-sky-500" %>
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-slate-700">Adres Tarifi</label>
+      <%= text_area_tag "address[free_text_description]", @address&.free_text_description, required: true, rows: 3,
+            class: "mt-1 block w-full rounded-md border-slate-300 focus:border-sky-500 focus:ring-sky-500" %>
+    </div>
+    <div>
+      <label class="block text-sm font-medium text-slate-700">Teslimat Notu</label>
+      <%= text_area_tag "address[delivery_notes]", @address&.delivery_notes, rows: 2,
+            class: "mt-1 block w-full rounded-md border-slate-300 focus:border-sky-500 focus:ring-sky-500" %>
+    </div>
+  </fieldset>
+
+  <fieldset class="space-y-3">
+    <legend class="text-sm font-medium text-slate-700">Ürünler</legend>
+    <% @products.each do |product| %>
+      <div class="flex items-center justify-between gap-4 rounded-md border border-slate-200 p-3 bg-white">
+        <div>
+          <p class="font-medium text-slate-900"><%= product.name %></p>
+          <p class="text-sm text-slate-500"><%= product.size_liters %> L &middot; <%= number_to_currency(product.base_price_try) %></p>
+        </div>
+        <%= number_field_tag "quantities[#{product.id}]", 0, min: 0, class: "w-20 rounded-md border-slate-300 focus:border-sky-500 focus:ring-sky-500" %>
+      </div>
+    <% end %>
+  </fieldset>
+
+  <%= submit_tag "Siparişi Oluştur", class: "rounded-md bg-sky-700 px-6 py-2.5 text-white font-medium hover:bg-sky-800 cursor-pointer" %>
+<% end %>

@@ -1,0 +1,49 @@
+<% content_for :title, "Siparişler — Personel Paneli" %>
+
+<div class="flex items-center justify-between">
+  <h1 class="text-2xl font-bold text-slate-900">Siparişler</h1>
+</div>
+
+<%= form_with url: staff_delivery_orders_path, method: :get, class: "mt-4 flex flex-wrap gap-3" do %>
+  <select name="district" class="rounded-md border-slate-300 focus:border-sky-500 focus:ring-sky-500">
+    <option value="">Tüm Bölgeler</option>
+    <% Districts::VALUES.each do |district| %>
+      <option value="<%= district %>" <%= "selected" if district == params[:district] %>><%= t("districts.#{district}") %></option>
+    <% end %>
+  </select>
+  <%= date_field_tag :date, params[:date], class: "rounded-md border-slate-300 focus:border-sky-500 focus:ring-sky-500" %>
+  <%= submit_tag "Filtrele", class: "rounded-md bg-sky-700 px-4 py-2 text-white font-medium hover:bg-sky-800 cursor-pointer" %>
+  <% if params[:district].present? || params[:date].present? %>
+    <%= link_to "Filtreyi Temizle", staff_delivery_orders_path, class: "text-sm text-slate-500 self-center underline" %>
+  <% end %>
+<% end %>
+
+<div class="mt-6 overflow-x-auto">
+  <table class="min-w-full divide-y divide-slate-200 bg-white rounded-lg shadow-sm">
+    <thead>
+      <tr class="text-left text-sm font-medium text-slate-500">
+        <th class="px-4 py-3">Tarih</th>
+        <th class="px-4 py-3">Müşteri</th>
+        <th class="px-4 py-3">Bölge</th>
+        <th class="px-4 py-3">Kaynak</th>
+        <th class="px-4 py-3">Durum</th>
+        <th class="px-4 py-3"></th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-slate-100">
+      <% @delivery_orders.each do |order| %>
+        <tr class="text-sm">
+          <td class="px-4 py-3 text-slate-600"><%= order.created_at.strftime("%d.%m.%Y %H:%M") %></td>
+          <td class="px-4 py-3 font-medium text-slate-900"><%= order.customer.name %> &middot; <%= order.customer.phone %></td>
+          <td class="px-4 py-3 text-slate-600"><%= t("districts.#{order.address.district}") %></td>
+          <td class="px-4 py-3 text-slate-600"><%= order.order_source %></td>
+          <td class="px-4 py-3"><span class="rounded-full bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700"><%= order.status %></span></td>
+          <td class="px-4 py-3"><%= link_to "Detay", staff_delivery_order_path(order), class: "text-sky-700 font-medium" %></td>
+        </tr>
+      <% end %>
+      <% if @delivery_orders.empty? %>
+        <tr><td colspan="6" class="px-4 py-6 text-center text-slate-400">Sipariş bulunamadı.</td></tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

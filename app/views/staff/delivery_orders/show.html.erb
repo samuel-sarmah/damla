@@ -1,0 +1,38 @@
+<% content_for :title, "Sipariş ##{@delivery_order.id} — Personel Paneli" %>
+
+<%= link_to "&larr; Siparişler".html_safe, staff_delivery_orders_path, class: "text-sm text-sky-700" %>
+
+<div class="mt-4 grid gap-6 md:grid-cols-2">
+  <div class="rounded-lg bg-white p-5 shadow-sm">
+    <h2 class="font-semibold text-slate-900">Müşteri</h2>
+    <p class="mt-2 text-sm text-slate-700"><%= @delivery_order.customer.name %></p>
+    <p class="text-sm text-slate-700"><%= @delivery_order.customer.phone %></p>
+
+    <h2 class="mt-5 font-semibold text-slate-900">Teslimat Adresi</h2>
+    <p class="mt-2 text-sm text-slate-700"><%= t("districts.#{@delivery_order.address.district}") %></p>
+    <p class="text-sm text-slate-700"><%= @delivery_order.address.free_text_description %></p>
+    <% if @delivery_order.address.delivery_notes.present? %>
+      <p class="mt-1 text-sm text-amber-700">Not: <%= @delivery_order.address.delivery_notes %></p>
+    <% end %>
+  </div>
+
+  <div class="rounded-lg bg-white p-5 shadow-sm">
+    <h2 class="font-semibold text-slate-900">Sipariş Kalemleri</h2>
+    <ul class="mt-2 divide-y divide-slate-100 text-sm">
+      <% @delivery_order.order_lines.each do |line| %>
+        <li class="flex items-center justify-between py-2">
+          <span><%= line.product.name %> &times; <%= line.quantity %></span>
+          <span class="text-slate-500"><%= number_to_currency(line.unit_price_try * line.quantity) %></span>
+        </li>
+      <% end %>
+    </ul>
+
+    <h2 class="mt-5 font-semibold text-slate-900">Kaynak / Durum</h2>
+    <p class="mt-2 text-sm text-slate-700">Kaynak: <%= @delivery_order.order_source %></p>
+
+    <%= form_with model: @delivery_order, url: staff_delivery_order_path(@delivery_order), method: :patch, class: "mt-2 flex gap-2" do |form| %>
+      <%= form.select :status, DeliveryOrder.statuses.keys.map { |s| [s, s] }, {}, class: "rounded-md border-slate-300 focus:border-sky-500 focus:ring-sky-500" %>
+      <%= form.submit "Durumu Güncelle", class: "rounded-md bg-sky-700 px-4 py-2 text-white font-medium hover:bg-sky-800 cursor-pointer" %>
+    <% end %>
+  </div>
+</div>
