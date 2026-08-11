@@ -14,6 +14,11 @@
     <% if @delivery_order.address.delivery_notes.present? %>
       <p class="mt-1 text-sm text-amber-700">Not: <%= @delivery_order.address.delivery_notes %></p>
     <% end %>
+    <% if @delivery_order.address.geo_lat.present? && @delivery_order.address.geo_lng.present? %>
+      <%= link_to "Haritada Gör",
+            "https://www.openstreetmap.org/?mlat=#{@delivery_order.address.geo_lat}&mlon=#{@delivery_order.address.geo_lng}#map=16/#{@delivery_order.address.geo_lat}/#{@delivery_order.address.geo_lng}",
+            target: "_blank", rel: "noopener", class: "mt-2 inline-block text-sm font-medium text-sky-700" %>
+    <% end %>
   </div>
 
   <div class="rounded-lg bg-white p-5 shadow-sm">

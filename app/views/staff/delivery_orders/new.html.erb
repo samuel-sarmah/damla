@@ -1,5 +1,9 @@
 <% content_for :title, "Yeni Sipariş — Personel Paneli" %>
 
+<% content_for :head do %>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<% end %>
+
 <h1 class="text-2xl font-bold text-slate-900">Yeni Sipariş (Manuel)</h1>
 
 <%= form_with url: staff_delivery_orders_path, method: :post, class: "mt-6 space-y-8 max-w-xl" do %>
@@ -36,6 +40,14 @@
       <%= text_area_tag "address[free_text_description]", @address&.free_text_description, required: true, rows: 3,
             class: "mt-1 block w-full rounded-md border-slate-300 focus:border-sky-500 focus:ring-sky-500" %>
     </div>
+    <div data-controller="address-map" data-address-map-center-value="<%= Districts::MAP_CENTER.to_json %>">
+      <p class="text-xs text-slate-500">İsteğe bağlı: konumu işaretlemek için haritaya dokunun.</p>
+      <div data-address-map-target="map" class="mt-2 h-56 rounded-lg ring-1 ring-slate-200 overflow-hidden"></div>
+      <p class="mt-1.5 text-xs font-medium text-sky-700" data-address-map-target="hint">Henüz işaret konulmadı</p>
+      <%= hidden_field_tag "address[geo_lat]", @address&.geo_lat, data: { address_map_target: "lat" } %>
+      <%= hidden_field_tag "address[geo_lng]", @address&.geo_lng, data: { address_map_target: "lng" } %>
+    </div>
+
     <div>
       <label class="block text-sm font-medium text-slate-700">Teslimat Notu</label>
       <%= text_area_tag "address[delivery_notes]", @address&.delivery_notes, rows: 2,

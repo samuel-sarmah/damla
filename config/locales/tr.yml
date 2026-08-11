@@ -37,10 +37,13 @@ tr:
     lefke: "Lefke"
   delivery_check:
     title: "Teslimat Bölgenizi Kontrol Edin"
+    subtitle: "Haritada bir bölgeye dokunun veya aşağıdan seçin."
     prompt: "Bölgenizi seçin"
     submit: "Kontrol Et"
     served: "İyi haber — %{district} bölgesine teslimat yapıyoruz."
     not_served: "Üzgünüz, şu anda %{district} bölgesine teslimat yapmıyoruz."
+    legend_served: "Şu anda teslimat var"
+    legend_not_served: "Henüz mevcut değil"
   delivery_orders:
     title: "Sipariş Ver"
     customer_name: "Ad Soyad"
@@ -51,6 +54,8 @@ tr:
     address_notes: "Teslimat Notu (opsiyonel)"
     quantity: "Adet"
     submit: "Siparişi Gönder"
+    address_map_hint: "İsteğe bağlı: konumunuzu işaretlemek için haritaya dokunun — sürücüye yardımcı olur, yukarıdaki tarifin yerini tutmaz."
+    address_pin_placeholder: "Henüz işaret konulmadı"
     no_items_selected: "Lütfen en az bir ürün seçin."
     thank_you: "Teşekkürler! Siparişiniz alındı — teslimatı onaylamak için sizinle iletişime geçeceğiz."
   footer:

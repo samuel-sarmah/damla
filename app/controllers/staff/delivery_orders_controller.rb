@@ -72,7 +72,7 @@ module Staff
     end
 
     def address_params
-      params.require(:address).permit(:district, :free_text_description, :delivery_notes)
+      params.require(:address).permit(:district, :free_text_description, :delivery_notes, :geo_lat, :geo_lng)
     end
 
     def build_order_lines

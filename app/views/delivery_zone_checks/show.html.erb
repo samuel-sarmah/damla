@@ -1,23 +1,49 @@
 <% content_for :title, "#{t('delivery_check.title')} — #{t('site.name')}" %>
 
-<div class="max-w-md">
-  <h1 class="text-3xl font-bold text-slate-900"><%= t("delivery_check.title") %></h1>
+<% content_for :head do %>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<% end %>
 
-  <%= form_with url: delivery_zone_check_path(locale: I18n.locale), method: :get, class: "mt-6 flex gap-3" do %>
-    <select name="district" class="flex-1 rounded-md border-slate-300 focus:border-sky-500 focus:ring-sky-500">
-      <option value=""><%= t("delivery_check.prompt") %></option>
-      <% Districts::VALUES.each do |district| %>
-        <option value="<%= district %>" <%= "selected" if district == @district %>>
-          <%= t("districts.#{district}") %>
-        </option>
-      <% end %>
-    </select>
-    <%= submit_tag t("delivery_check.submit"), class: "rounded-md bg-sky-700 px-5 py-2 text-white font-medium hover:bg-sky-800 cursor-pointer" %>
-  <% end %>
+<div class="container mx-auto px-5 py-10">
+  <h1 class="text-3xl font-bold tracking-tight text-slate-900"><%= t("delivery_check.title") %></h1>
+  <p class="mt-2 text-slate-500"><%= t("delivery_check.subtitle") %></p>
 
-  <% if @district %>
-    <p class="mt-6 rounded-md p-4 <%= @served ? "bg-emerald-50 text-emerald-800" : "bg-amber-50 text-amber-800" %>">
-      <%= t("delivery_check.#{@served ? "served" : "not_served"}", district: t("districts.#{@district}")) %>
-    </p>
-  <% end %>
+  <div class="mt-8 grid gap-8 lg:grid-cols-5">
+    <div class="lg:col-span-3">
+      <div class="overflow-hidden rounded-2xl shadow-sm ring-1 ring-slate-200"
+           style="height: 420px"
+           data-controller="delivery-map"
+           data-delivery-map-districts-value="<%= @map_districts.to_json %>"
+           data-delivery-map-selected-value="<%= @district %>"
+           data-delivery-map-center-value="<%= Districts::MAP_CENTER.to_json %>">
+      </div>
+      <div class="mt-3 flex gap-5 text-sm text-slate-500">
+        <span class="inline-flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-full bg-emerald-600"></span><%= t("delivery_check.legend_served") %></span>
+        <span class="inline-flex items-center gap-1.5"><span class="h-2.5 w-2.5 rounded-full bg-slate-400"></span><%= t("delivery_check.legend_not_served") %></span>
+      </div>
+    </div>
+
+    <div class="lg:col-span-2">
+      <div class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-slate-100">
+        <%= form_with url: delivery_zone_check_path(locale: I18n.locale), method: :get, class: "space-y-3" do %>
+          <select name="district" class="w-full rounded-md border-slate-300 focus:border-sky-500 focus:ring-sky-500">
+            <option value=""><%= t("delivery_check.prompt") %></option>
+            <% Districts::VALUES.each do |district| %>
+              <option value="<%= district %>" <%= "selected" if district == @district %>>
+                <%= t("districts.#{district}") %>
+              </option>
+            <% end %>
+          </select>
+          <%= submit_tag t("delivery_check.submit"), class: "w-full rounded-md bg-sky-700 px-5 py-2.5 text-white font-semibold hover:bg-sky-800 cursor-pointer" %>
+        <% end %>
+
+        <% if @district %>
+          <p class="mt-5 flex items-start gap-2 rounded-lg p-4 text-sm <%= @served ? "bg-emerald-50 text-emerald-800 ring-1 ring-inset ring-emerald-200" : "bg-amber-50 text-amber-800 ring-1 ring-inset ring-amber-200" %>">
+            <%= icon(@served ? :check_circle : :map_pin, css_class: "w-5 h-5 shrink-0") %>
+            <span><%= t("delivery_check.#{@served ? "served" : "not_served"}", district: t("districts.#{@district}")) %></span>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>

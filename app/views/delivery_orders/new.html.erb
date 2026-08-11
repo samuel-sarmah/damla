@@ -1,10 +1,14 @@
 <% content_for :title, "#{t('delivery_orders.title')} — #{t('site.name')}" %>
 
-<div class="max-w-xl">
-  <h1 class="text-3xl font-bold text-slate-900"><%= t("delivery_orders.title") %></h1>
+<% content_for :head do %>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<% end %>
 
-  <%= form_with url: delivery_orders_path(locale: I18n.locale), method: :post, class: "mt-8 space-y-8" do %>
-    <fieldset class="space-y-4">
+<div class="container mx-auto px-5 py-10 max-w-2xl">
+  <h1 class="text-3xl font-bold tracking-tight text-slate-900"><%= t("delivery_orders.title") %></h1>
+
+  <%= form_with url: delivery_orders_path(locale: I18n.locale), method: :post, class: "mt-8 space-y-6" do %>
+    <fieldset class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-slate-100 space-y-4">
       <div>
         <label class="block text-sm font-medium text-slate-700"><%= t("delivery_orders.customer_name") %></label>
         <%= text_field_tag "customer[name]", @customer&.name, required: true,
@@ -17,7 +21,7 @@
       </div>
     </fieldset>
 
-    <fieldset class="space-y-4">
+    <fieldset class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-slate-100 space-y-4">
       <div>
         <label class="block text-sm font-medium text-slate-700"><%= t("delivery_orders.address_district") %></label>
         <%= select_tag "address[district]",
@@ -31,6 +35,15 @@
         <%= text_area_tag "address[free_text_description]", @address&.free_text_description, required: true, rows: 3,
               class: "mt-1 block w-full rounded-md border-slate-300 focus:border-sky-500 focus:ring-sky-500" %>
       </div>
+
+      <div data-controller="address-map" data-address-map-center-value="<%= Districts::MAP_CENTER.to_json %>">
+        <p class="text-xs text-slate-500"><%= t("delivery_orders.address_map_hint") %></p>
+        <div data-address-map-target="map" class="mt-2 h-56 rounded-lg ring-1 ring-slate-200 overflow-hidden"></div>
+        <p class="mt-1.5 text-xs font-medium text-sky-700" data-address-map-target="hint"><%= t("delivery_orders.address_pin_placeholder") %></p>
+        <%= hidden_field_tag "address[geo_lat]", @address&.geo_lat, data: { address_map_target: "lat" } %>
+        <%= hidden_field_tag "address[geo_lng]", @address&.geo_lng, data: { address_map_target: "lng" } %>
+      </div>
+
       <div>
         <label class="block text-sm font-medium text-slate-700"><%= t("delivery_orders.address_notes") %></label>
         <%= text_area_tag "address[delivery_notes]", @address&.delivery_notes, rows: 2,
@@ -38,19 +51,24 @@
       </div>
     </fieldset>
 
-    <fieldset class="space-y-3">
-      <legend class="text-sm font-medium text-slate-700"><%= t("products.title") %></legend>
+    <fieldset class="rounded-xl bg-white p-6 shadow-sm ring-1 ring-slate-100 space-y-3">
+      <legend class="px-1 text-sm font-medium text-slate-700"><%= t("products.title") %></legend>
       <% @products.each do |product| %>
-        <div class="flex items-center justify-between gap-4 rounded-md border border-slate-200 p-3">
-          <div>
-            <p class="font-medium text-slate-900"><%= product.name %></p>
-            <p class="text-sm text-slate-500"><%= product.size_liters %> L &middot; <%= number_to_currency(product.base_price_try) %></p>
+        <div class="flex items-center justify-between gap-4 rounded-lg border border-slate-200 p-3">
+          <div class="flex items-center gap-3">
+            <span class="flex h-9 w-9 items-center justify-center rounded-full bg-sky-50 text-sky-700 shrink-0">
+              <%= icon :droplet, css_class: "w-4 h-4" %>
+            </span>
+            <div>
+              <p class="font-medium text-slate-900"><%= product.name %></p>
+              <p class="text-sm text-slate-500"><%= product.size_liters %> L &middot; <%= number_to_currency(product.base_price_try) %></p>
+            </div>
           </div>
           <%= number_field_tag "quantities[#{product.id}]", 0, min: 0, class: "w-20 rounded-md border-slate-300 focus:border-sky-500 focus:ring-sky-500" %>
         </div>
       <% end %>
     </fieldset>
 
-    <%= submit_tag t("delivery_orders.submit"), class: "rounded-md bg-sky-700 px-6 py-2.5 text-white font-medium hover:bg-sky-800 cursor-pointer" %>
+    <%= submit_tag t("delivery_orders.submit"), class: "w-full rounded-full bg-sky-700 px-6 py-3 text-white font-semibold shadow-sm hover:bg-sky-800 cursor-pointer" %>
   <% end %>
 </div>

@@ -37,10 +37,13 @@ en:
     lefke: "Lefke"
   delivery_check:
     title: "Check your delivery area"
+    subtitle: "Tap a district on the map, or pick one below."
     prompt: "Select your district"
     submit: "Check"
     served: "Good news — we deliver to %{district}."
     not_served: "Sorry, we don't currently deliver to %{district} yet."
+    legend_served: "Delivering now"
+    legend_not_served: "Not yet available"
   delivery_orders:
     title: "Place an order"
     customer_name: "Full name"
@@ -51,6 +54,8 @@ en:
     address_notes: "Delivery notes (optional)"
     quantity: "Quantity"
     submit: "Place order"
+    address_map_hint: "Optional: tap the map to drop a pin at your location — helps the driver, doesn't replace the description above."
+    address_pin_placeholder: "No pin dropped yet"
     no_items_selected: "Please select at least one product."
     thank_you: "Thanks! Your order has been received — we'll contact you to confirm delivery."
   footer:
