@@ -1,13 +1,93 @@
 <% content_for :title, "#{t('site.name')} — #{t('home.hero_title')}" %>
 
-<section class="max-w-2xl">
-  <h1 class="text-4xl font-bold tracking-tight text-slate-900"><%= t("home.hero_title") %></h1>
-  <p class="mt-4 text-lg text-slate-600"><%= t("home.hero_subtitle") %></p>
+<section class="relative overflow-hidden bg-gradient-to-br from-sky-600 via-sky-700 to-cyan-800 text-white">
+  <div class="pointer-events-none absolute inset-0 opacity-20" aria-hidden="true">
+    <svg class="h-full w-full" preserveAspectRatio="xMidYMid slice" viewBox="0 0 400 400" fill="none">
+      <circle cx="60" cy="60" r="90" stroke="white" stroke-width="1.5" />
+      <circle cx="340" cy="120" r="60" stroke="white" stroke-width="1.5" />
+      <circle cx="200" cy="340" r="120" stroke="white" stroke-width="1.5" />
+    </svg>
+  </div>
 
-  <div class="mt-6 flex gap-4">
-    <%= link_to t("home.cta_products"), products_path(locale: I18n.locale),
-          class: "inline-block rounded-md bg-sky-700 px-5 py-2.5 text-white font-medium hover:bg-sky-800" %>
-    <%= link_to t("home.cta_delivery_check"), delivery_zone_check_path(locale: I18n.locale),
-          class: "inline-block rounded-md border border-sky-700 px-5 py-2.5 text-sky-700 font-medium hover:bg-sky-50" %>
+  <div class="container relative mx-auto px-5 py-20 sm:py-28">
+    <div class="max-w-2xl">
+      <span class="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide ring-1 ring-inset ring-white/25">
+        <%= icon :droplet, css_class: "w-4 h-4" %>
+        <%= t("home.hero_eyebrow") %>
+      </span>
+      <h1 class="mt-5 text-4xl sm:text-5xl font-bold tracking-tight"><%= t("home.hero_title") %></h1>
+      <p class="mt-5 text-lg text-sky-100"><%= t("home.hero_subtitle") %></p>
+
+      <div class="mt-8 flex flex-wrap gap-4">
+        <%= link_to products_path(locale: I18n.locale),
+              class: "inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-sky-700 shadow-sm hover:bg-sky-50" do %>
+          <%= t("home.cta_products") %>
+          <%= icon :arrow_right, css_class: "w-4 h-4" %>
+        <% end %>
+        <%= link_to t("home.cta_delivery_check"), delivery_zone_check_path(locale: I18n.locale),
+              class: "inline-flex items-center gap-2 rounded-full border border-white/40 px-6 py-3 font-semibold text-white hover:bg-white/10" %>
+      </div>
+    </div>
+  </div>
+
+  <svg class="block w-full text-slate-50" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="currentColor" d="M0,32 C240,64 480,0 720,16 C960,32 1200,64 1440,32 L1440,60 L0,60 Z" />
+  </svg>
+</section>
+
+<section class="container mx-auto px-5 py-14">
+  <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <% [
+         [:truck, "feature_fast"],
+         [:shield_check, "feature_quality"],
+         [:droplet, "feature_sizes"],
+         [:map_pin, "feature_zones"],
+       ].each do |icon_name, key| %>
+      <div class="rounded-xl bg-white p-5 shadow-sm ring-1 ring-slate-100">
+        <span class="flex h-10 w-10 items-center justify-center rounded-full bg-sky-50 text-sky-700">
+          <%= icon icon_name, css_class: "w-5 h-5" %>
+        </span>
+        <p class="mt-4 font-semibold text-slate-900"><%= t("home.#{key}_title") %></p>
+        <p class="mt-1.5 text-sm text-slate-500"><%= t("home.#{key}_body") %></p>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<section class="container mx-auto px-5 py-6">
+  <div class="flex items-center justify-between">
+    <h2 class="text-2xl font-bold text-slate-900"><%= t("home.products_heading") %></h2>
+    <%= link_to products_path(locale: I18n.locale), class: "hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-sky-700 hover:text-sky-800" do %>
+      <%= t("home.products_cta") %>
+      <%= icon :arrow_right, css_class: "w-4 h-4" %>
+    <% end %>
+  </div>
+
+  <div class="mt-6 grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+    <% @products.each do |product| %>
+      <%= link_to product_path(product, locale: I18n.locale),
+            class: "group block rounded-xl bg-white p-4 text-center shadow-sm ring-1 ring-slate-100 hover:ring-sky-300 hover:shadow-md transition" do %>
+        <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-sky-50 text-sky-700 group-hover:bg-sky-100">
+          <%= icon :droplet, css_class: "w-6 h-6" %>
+        </span>
+        <p class="mt-3 text-sm font-semibold text-slate-900"><%= product.size_liters %> L</p>
+        <p class="mt-1 text-xs text-slate-500 truncate"><%= product.name %></p>
+        <p class="mt-2 text-sm font-semibold text-sky-700"><%= number_to_currency(product.base_price_try) %></p>
+      <% end %>
+    <% end %>
+  </div>
+</section>
+
+<section class="container mx-auto px-5 py-14">
+  <div class="rounded-2xl bg-gradient-to-br from-cyan-600 to-sky-700 px-8 py-10 text-white sm:flex sm:items-center sm:justify-between">
+    <div class="max-w-lg">
+      <h2 class="text-2xl font-bold"><%= t("home.zone_banner_title") %></h2>
+      <p class="mt-2 text-sky-100"><%= t("home.zone_banner_body") %></p>
+    </div>
+    <%= link_to delivery_zone_check_path(locale: I18n.locale),
+          class: "mt-6 sm:mt-0 inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-sky-700 shadow-sm hover:bg-sky-50" do %>
+      <%= icon :map_pin, css_class: "w-5 h-5" %>
+      <%= t("home.zone_banner_cta") %>
+    <% end %>
   </div>
 </section>
