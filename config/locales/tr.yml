@@ -20,6 +20,7 @@ tr:
   products:
     title: "Ürünlerimiz"
     view_details: "Detayları Gör"
+    deposit_badge: "Değişimli"
     deposit_note: "Değişimli damacana — ilk teslimatta depozito alınır; sonraki teslimatlar boş damacana karşılığı doludur."
   whatsapp:
     order_template: "Merhaba, %{quantity} adet %{product} (%{size}L) sipariş etmek istiyorum."

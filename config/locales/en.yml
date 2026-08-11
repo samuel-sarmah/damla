@@ -20,6 +20,7 @@ en:
   products:
     title: "Our Products"
     view_details: "View details"
+    deposit_badge: "Refillable"
     deposit_note: "Refillable jug — first delivery includes a deposit; later deliveries are an empty-for-full exchange."
   whatsapp:
     order_template: "Hello, I'd like to order %{quantity} x %{product} (%{size}L)."
