@@ -73,4 +73,6 @@ en:
     no_items_selected: "Please select at least one product."
     thank_you: "Thanks! Your order has been received — we'll contact you to confirm delivery."
   footer:
+    trust_heading: "Why trust us"
+    trust_body: "Regulated under TRNC Ministry of Health rules for packaged drinking water — see our water quality page for details."
     rights: "All rights reserved."

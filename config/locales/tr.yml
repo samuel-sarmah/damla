@@ -73,4 +73,6 @@ tr:
     no_items_selected: "Lütfen en az bir ürün seçin."
     thank_you: "Teşekkürler! Siparişiniz alındı — teslimatı onaylamak için sizinle iletişime geçeceğiz."
   footer:
+    trust_heading: "Neden bize güvenmelisiniz"
+    trust_body: "Ambalajlı içme suyu için KKTC Sağlık Bakanlığı kurallarına tabiyiz — detaylar için su kalitesi sayfamıza bakın."
     rights: "Tüm hakları saklıdır."
